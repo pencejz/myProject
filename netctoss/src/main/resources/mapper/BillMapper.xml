@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="edu.nclg.netctoss.dao.BillDao">
+
+	<!-- 查询所有账单 -->
+	<select id="queryAll" resultType="edu.nclg.netctoss.entity.Bill">
+		select
+			bill_id as billId,
+			account_id as accountId,
+			name,
+			idcard,
+			month_charge as monthCharge,
+			month_year as yearMonth,
+			payment,
+			pay_status as payStatus,
+			date,
+			account_name as accountName
+		from bill
+	</select>
+	
+	<!-- 添加账单管理 -->
+	<insert id="addBill" parameterType="edu.nclg.netctoss.entity.Bill"  useGeneratedKeys="true" keyProperty="billId">
+		insert into bill(
+			account_id, name, idcard, month_charge, month_year, payment, pay_status, date, account_name)
+		values(
+			#{accountId}, #{name}, #{idcard}, #{monthCharge}, #{yearMonth}, #{payment}, #{payStatus}, #{date}, #{accountName})
+	</insert>
+	
+	
+	
+	
+</mapper>

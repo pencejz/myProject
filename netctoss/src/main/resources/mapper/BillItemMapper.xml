@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="edu.nclg.netctoss.dao.BillItemDao">
+
+	<!-- 查询所有账单明细 -->
+	<select id="queryAll" resultType="edu.nclg.netctoss.entity.BillItem">
+		select
+			bill_item_id as billItemId,
+			account_id as accountId,
+			cost_id as costId,
+			os_username as osUsername,
+			unix_host as unixHost,
+			duration,
+			business_charge as businessCharge,
+			date,
+			cost_name as costName
+		from bill_item
+	</select>
+	
+	<!-- 根据账单明细ID查询账单明细 -->
+	<select id="queryByBillItemId" parameterType="int" resultType="edu.nclg.netctoss.entity.BillItem">
+		select
+			bill_item_id as billItemId,
+			account_id as accountId,
+			cost_id as costId,
+			os_username as osUsername,
+			unix_host as unixHost,
+			duration,
+			business_charge as businessCharge,
+			date,
+			cost_name as costName
+		from bill_item
+		where bill_item_id = #{billItemId}
+	</select>
+	
+	<!-- 根据账务账号ID查询一个月的账单明细 -->
+	<select id="queryByAccountId" parameterType="int" resultType="edu.nclg.netctoss.entity.BillItem">
+		select
+			bill_item_id as billItemId,
+			account_id as accountId,
+			cost_id as costId,
+			os_username as osUsername,
+			unix_host as unixHost,
+			duration,
+			business_charge as businessCharge,
+			date,
+			cost_name as costName
+		from bill_item
+		where account_id = #{accountId}
+	</select>
+	
+	<!-- 根据服务器IP查询账单明细-->
+	<select id="queryByUnixHost" parameterType="String" resultType="edu.nclg.netctoss.entity.BillItem">
+		select
+			bill_item_id as billItemId,
+			account_id as accountId,
+			cost_id as costId,
+			os_username as osUsername,
+			unix_host as unixHost,
+			duration,
+			business_charge as businessCharge,
+			date,
+			cost_name as costName
+		from bill_item
+		where unix_host = #{unixHost}
+	</select>
+	
+	
+	
+	<!-- 添加账单明细 -->
+	<insert id="addBillItem" parameterType="edu.nclg.netctoss.entity.BillItem"  useGeneratedKeys="true" keyProperty="billItemId">
+		insert into bill_item(
+			account_id,cost_id,os_username,unix_host,duration,business_charge,date,cost_name)
+		values(
+			#{accountId},#{costId},#{osUsername},#{unixHost},#{duration},#{businessCharge},#{date},#{costName})
+	</insert>
+	
+	
+	
+	
+	
+</mapper>

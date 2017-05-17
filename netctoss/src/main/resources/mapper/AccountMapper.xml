@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="edu.nclg.netctoss.dao.AccountDao">
+
+	<!-- 查询所有账务账号信息 -->
+	<select id="queryAll" resultType="edu.nclg.netctoss.entity.Account">
+		select
+			account_id as accountId,
+			login_name as loginName,
+			login_password as loginPassword,
+			status,
+			create_date as createDate,
+			pause_date as pauseDate,
+			real_name as realName,
+			idcard as idCard,
+			gender,
+			occupation,
+			telephone,
+			email,
+			mailaddress,
+			zipcode as zipCode,
+			qq,
+			last_login_time as lastLoginTime
+		from account
+	</select>
+	
+	<!-- 根据账务账号ID查询账务账号信息 -->
+	<select id="queryByAccountId" parameterType="int" resultType="edu.nclg.netctoss.entity.Account">
+		select
+			account_id as accountId,
+			login_name as loginName,
+			login_password as loginPassword,
+			status,
+			create_date as createDate,
+			pause_date as pauseDate,
+			real_name as realName,
+			idcard as idCard,
+			gender,
+			occupation,
+			telephone,
+			email,
+			mailaddress,
+			zipcode as zipCode,
+			qq,
+			last_login_time as lastLoginTime
+		from account
+		where account_id = #{accountId}
+	</select>
+	
+	<!-- 根据身份证查询账务账号信息 -->
+	<select id="queryByIdcard" parameterType="string" resultType="edu.nclg.netctoss.entity.Account">
+		select
+			account_id as accountId,
+			login_name as loginName,
+			login_password as loginPassword,
+			status,
+			create_date as createDate,
+			pause_date as pauseDate,
+			real_name as realName,
+			idcard as idCard,
+			gender,
+			occupation,
+			telephone,
+			email,
+			mailaddress,
+			zipcode as zipCode,
+			qq,
+			last_login_time as lastLoginTime
+		from account
+		where idcard = #{idCard}
+	</select>
+	
+	<!-- 根据真实姓名查询账务账号信息 -->
+	<select id="queryByRealName" parameterType="string" resultType="edu.nclg.netctoss.entity.Account">
+		select
+			account_id as accountId,
+			login_name as loginName,
+			login_password as loginPassword,
+			status,
+			create_date as createDate,
+			pause_date as pauseDate,
+			real_name as realName,
+			idcard as idCard,
+			gender,
+			occupation,
+			telephone,
+			email,
+			mailaddress,
+			zipcode as zipCode,
+			qq,
+			last_login_time as lastLoginTime
+		from account
+		where real_name = #{realName}
+	</select>
+	
+	<!-- 根据登录名查询账务账号信息 -->
+	<select id="queryByLoginName" parameterType="string" resultType="edu.nclg.netctoss.entity.Account">
+		select
+			account_id as accountId,
+			login_name as loginName,
+			login_password as loginPassword,
+			status,
+			create_date as createDate,
+			pause_date as pauseDate,
+			real_name as realName,
+			idcard as idCard,
+			gender,
+			occupation,
+			telephone,
+			email,
+			mailaddress,
+			zipcode as zipCode,
+			qq,
+			last_login_time as lastLoginTime
+		from account
+		where login_name = #{loginName}
+	</select>
+	
+	<!-- 根据状态查询账务账号信息 -->	
+	<select id="queryByStatus" parameterType="int" resultType="edu.nclg.netctoss.entity.Account">
+		select
+			account_id as accountId,
+			login_name as loginName,
+			login_password as loginPassword,
+			status,
+			create_date as createDate,
+			pause_date as pauseDate,
+			real_name as realName,
+			idcard as idCard,
+			gender,
+			occupation,
+			telephone,
+			email,
+			mailaddress,
+			zipcode as zipCode,
+			qq,
+			last_login_time as lastLoginTime
+		from account
+		where
+			status = #{status}
+	</select>
+	
+	<!-- 添加账务账号信息 -->
+	<insert id="addAccount" parameterType="edu.nclg.netctoss.entity.Account" useGeneratedKeys="true" keyProperty="accountId">
+		insert into account(
+			login_name, login_password, status, create_date, pause_date, real_name,idcard,
+			gender, occupation, telephone, email, mailaddress, zipcode, qq, last_login_time)
+		values(
+			#{loginName},#{loginPassword},#{status},#{createDate},#{pauseDate},#{realName},#{idCard},
+			#{gender},#{occupation},#{telephone},#{email},#{mailaddress},#{zipCode},#{qq},#{lastLoginTime})
+	</insert>
+	
+	<!-- 修改账务账号信息 -->
+	<update id="updateAccount" parameterType="edu.nclg.netctoss.entity.Account">
+		update account
+		set
+			login_name = #{loginName},
+			login_password = #{loginPassword},
+			status = #{status},
+			create_date = #{createDate},
+			pause_date = #{pauseDate},
+			real_name = #{realName},
+			idcard = #{idCard},
+			gender = #{gender},
+			occupation = #{occupation},
+			telephone = #{telephone},
+			email = #{email},
+			mailaddress = #{mailaddress},
+			zipcode = #{zipCode},
+			qq = #{qq},
+			last_login_time = #{lastLoginTime}
+		where
+			account_id = #{accountId}
+	</update>
+	
+	<!-- 更改账务账号状态 -->
+	<update id="updateStatus" parameterType="edu.nclg.netctoss.entity.Account">
+		update account
+			set
+				status = #{status},
+				pause_date = #{pauseDate}
+		where
+			account_id = #{accountId}
+	</update>
+	
+	<!-- 根据账务账号ID删除账务账号信息 -->
+	<delete id="deleteAccount" parameterType="int">
+		delete from account
+		where account_id = #{accountId} and status=1
+	</delete>
+	
+	
+</mapper>
+
+
+
+
+
+	
+	
+	
+	
+
+
+
+

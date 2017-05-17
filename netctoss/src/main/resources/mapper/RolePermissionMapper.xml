@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="edu.nclg.netctoss.dao.RolePermissionDao">
+
+	<!-- 查询所有角色信息 -->
+	<select id="queryRole" resultType="edu.nclg.netctoss.entity.RolePermission">
+		select
+			role_id as roleId,
+			role_name as roleName
+		from role
+	</select>
+	
+	<!-- 根据角色名称查询角色表 -->
+	<select id="queryRoleByRoleName" parameterType="String" resultType="edu.nclg.netctoss.entity.RolePermission">
+		select
+			role_id as roleId,
+			role_name as roleName
+		from role
+		where role_name = #{roleName}
+	</select>
+	
+	<!-- 根据角色ID称查询角色表 -->
+	<select id="queryRoleByRoleId" parameterType="int" resultType="edu.nclg.netctoss.entity.RolePermission">
+		select
+			role_id as roleId,
+			role_name as roleName
+		from role
+		where role_id = #{roleId}
+	</select>
+	
+	<!-- 查询所有权限信息 -->
+	<select id="queryPermission" resultType="edu.nclg.netctoss.entity.RolePermission">
+		select
+			permission_id as permissionId,
+			permission_name as permissionName
+		from permission
+	</select>
+	
+	<!-- 查询所有对应角色、权限 -->
+	<select id="queryRolePermission" resultType="edu.nclg.netctoss.entity.RolePermission">
+		select
+			rp.role_id as roleId,
+			r.role_name as roleName,
+			rp.permission_id as permissionId,
+			p.permission_name as permissionName
+		from
+			role r,permission p,role_permission rp
+		where
+			r.role_id=rp.role_id and p.permission_id=rp.permission_id
+	</select>
+	
+	<!-- 根据角色ID查询对应的权限信息 -->
+	<select id="queryRolePermissionByRoleId" parameterType="int" resultType="edu.nclg.netctoss.entity.RolePermission">
+		select
+			rp.role_id as roleId,
+			r.role_name as roleName,
+			rp.permission_id as permissionId,
+			p.permission_name as permissionName
+		from
+			role r,permission p,role_permission rp
+		where
+			r.role_id= #{roleId} and r.role_id=rp.role_id and p.permission_id=rp.permission_id
+	</select>
+	
+	<!-- 添加角色
+		useGeneratedKeys="true" 设置主键自增
+		keyProperty="roleId" 返回的主键值自动保存到参数对象的roleId属性中 -->
+	<insert id="addRole" parameterType="edu.nclg.netctoss.entity.RolePermission" useGeneratedKeys="true" keyProperty="roleId">
+		insert into role(role_name)
+		values(#{roleName})
+	</insert>
+	
+	<!-- 添加角色权限信息 -->
+	<insert id="addRolePermission" parameterType="edu.nclg.netctoss.entity.RolePermission">
+		insert into role_permission(role_id,permission_id)
+		values(#{roleId},#{permissionId})
+	</insert>
+	
+	<!-- 根据角色ID删除角色 -->
+	<delete id="deleteRole" parameterType="int">
+		delete from role
+		where role_id = #{roleId}
+	</delete>
+	
+	<!-- 根据角色ID删除角色权限信息 -->
+	<delete id="deleteRolePermission" parameterType="int">
+		delete from	role_permission
+		where role_id = #{roleId}
+	</delete>
+	
+	<!-- 修改角色名称 -->
+	<update id="updateRole" parameterType="edu.nclg.netctoss.entity.RolePermission">
+		update role
+		set
+			role_name = #{roleName}
+		where
+			role_id = #{roleId}
+	</update>
+	
+	
+	<!-- 主键重新排序 -->
+	<update id="updateKey">
+		ALTER TABLE cost
+		DROP COLUMN cost_id,
+		ADD COLUMN cost_id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT FIRST ,
+		DROP PRIMARY KEY,
+		ADD PRIMARY KEY (cost_id),
+		AUTO_INCREMENT=1;
+	</update>
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

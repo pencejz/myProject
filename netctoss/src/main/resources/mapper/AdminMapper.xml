@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="edu.nclg.netctoss.dao.AdminDao">
+
+	<!-- 查询所有管理员信息 -->
+	<select id="queryAll" resultType="edu.nclg.netctoss.entity.Admin">
+		select
+			admin_id as adminId,
+			role_id as roleId,
+			login_name as loginName,
+			password,
+			name,
+			telephone,
+			email,
+			enroll_date as enrollDate,
+			role_name as roleName
+		from admin
+	</select>
+	
+	<!-- 根据管理员ID查询管理员信息 -->
+	<select id="queryByAdminId" parameterType="int" resultType="edu.nclg.netctoss.entity.Admin">
+		select
+			admin_id as adminId,
+			role_id as roleId,
+			login_name as loginName,
+			password,
+			name,
+			telephone,
+			email,
+			enroll_date as enrollDate,
+			role_name as roleName
+		from admin
+		where admin_id = #{adminId}
+	</select>
+	
+	<!-- 根据角色ID查询管理员信息 -->
+	<select id="queryByRoleId" parameterType="int" resultType="edu.nclg.netctoss.entity.Admin">
+		select
+			admin_id as adminId,
+			role_id as roleId,
+			login_name as loginName,
+			password,
+			name,
+			telephone,
+			email,
+			enroll_date as enrollDate,
+			role_name as roleName
+		from admin
+		where admin_id = #{adminId}
+	</select>
+	
+	<!-- 根据姓名查询管理员信息 -->
+	<select id="queryByName" parameterType="string" resultType="edu.nclg.netctoss.entity.Admin">
+		select
+			admin_id as adminId,
+			role_id as roleId,
+			login_name as loginName,
+			password,
+			name,
+			telephone,
+			email,
+			enroll_date as enrollDate,
+			role_name as roleName
+		from admin
+		where name = #{name}
+	</select>
+	
+	<!-- 根据登录名查询管理员信息 -->
+	<select id="queryByLoginName" parameterType="string" resultType="edu.nclg.netctoss.entity.Admin">
+		SET GLOBAL event_scheduler = ON;
+		select
+			admin_id as adminId,
+			role_id as roleId,
+			login_name as loginName,
+			password,
+			name,
+			telephone,
+			email,
+			enroll_date as enrollDate,
+			role_name as roleName
+		from admin
+		where login_name = #{loginName}
+	</select>
+	
+	<!-- 添加管理员信息 -->
+	<insert id="addAdmin" parameterType="edu.nclg.netctoss.entity.Admin" useGeneratedKeys="true" keyProperty="adminId">
+		insert into admin(
+			role_id, login_name, password, name, telephone, email, enroll_date,role_name)
+		values(
+			#{roleId},#{loginName},#{password},#{name},#{telephone},#{email},#{enrollDate},#{roleName})
+	</insert>
+	
+	<!-- 修改管理员信息 -->
+	<update id="updateAdmin" parameterType="edu.nclg.netctoss.entity.Admin">
+		update admin
+		set
+			role_id = #{roleId},
+			name = #{name},
+			telephone = #{telephone},
+			email = #{email}
+		where
+			admin_id = #{adminId}
+	</update>
+	
+	<!-- 修改密码 -->
+	<update id="updatePwd" parameterType="edu.nclg.netctoss.entity.Admin">
+		update admin
+		set password = #{password}
+		where admin_id = #{adminId}
+	</update>
+	
+	<!-- 根据管理员ID删除管理员信息 -->
+	<delete id="deleteAdmin" parameterType="int">
+		delete from admin
+		where admin_id = #{adminId}
+	</delete>
+	
+	<!-- 主键重新排序 -->
+	<update id="updateKey">
+		ALTER TABLE admin
+		DROP COLUMN admin_id,
+		ADD COLUMN admin_id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT FIRST ,
+		DROP PRIMARY KEY,
+		ADD PRIMARY KEY (admin_id),
+		AUTO_INCREMENT=1;
+	</update>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

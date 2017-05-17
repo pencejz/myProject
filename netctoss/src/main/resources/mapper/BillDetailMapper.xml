@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="edu.nclg.netctoss.dao.BillDetailDao">
+
+	<!-- 查询所有账单详单信息 -->
+	<select id="queryAll" resultType="edu.nclg.netctoss.entity.BillDetail">
+		select
+			bill_detail_id as billDetailId,
+			unix_host as unixHost,
+			cost_id as costId,
+			in_time as inTime,
+			out_time as outTime,
+			duration,
+			charge,
+			cost_name as costName
+		from bill_detail
+	</select>
+	
+	<!-- 根据服务器IP查询账单详单信息 -->
+	<select id="queryByUnixHost" parameterType="String" resultType="edu.nclg.netctoss.entity.BillDetail">
+		select
+			bill_detail_id as billDetailId,
+			unix_host as unixHost,
+			cost_id as costId,
+			in_time as inTime,
+			out_time as outTime,
+			duration,
+			charge,
+			cost_name as costName
+		from bill_detail
+		where unix_host = #{unixHost}
+	</select>
+	
+	<!-- 添加账单详单 -->
+	<insert id="addBillDetail" parameterType="edu.nclg.netctoss.entity.BillDetail"  useGeneratedKeys="true" keyProperty="billDetailId">
+		insert into bill_detail(
+			unix_host,cost_id,in_time,out_time,duration,charge,cost_name)
+		values(
+			#{unixHost},#{costId},#{inTime},#{outTime},#{duration},#{charge},#{costName})
+	</insert>
+	
+	
+	
+	
+</mapper>

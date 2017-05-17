@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="edu.nclg.netctoss.dao.BusinessDao">
+
+	<!-- 查询所有业务账号信息 -->
+	<select id="queryAll" resultType="edu.nclg.netctoss.entity.Business">
+		select
+			b.business_id as businessId,
+			b.account_id as accountId,
+			b.cost_id as costId,
+			b.unix_host as unixHost,
+			b.os_username as osUserName,
+			b.login_password as loginPassword,
+			b.status,
+			b.create_date as createDate,
+			b.pause_date as pauseDate,
+			b.flag,
+			
+			a.idcard as idCard,
+			a.real_name as realName,
+			
+			c.name
+			
+		from (business b inner join account a on b.account_id=a.account_id)
+						 inner join cost c on c.cost_id=b.cost_id
+	</select>
+	
+	<!-- 根据账务账号ID查询业务账号信息 -->
+	<select id="queryByAccountId" resultType="edu.nclg.netctoss.entity.Business">
+		select
+			b.business_id as businessId,
+			b.account_id as accountId,
+			b.cost_id as costId,
+			b.unix_host as unixHost,
+			b.os_username as osUserName,
+			b.login_password as loginPassword,
+			b.status,
+			b.create_date as createDate,
+			b.pause_date as pauseDate,
+			b.flag,
+			
+			a.idcard as idCard,
+			a.real_name as realName,
+			
+			c.name
+			
+		from (business b inner join account a on b.account_id=a.account_id)
+						 inner join cost c on c.cost_id=b.cost_id
+		where b.account_id = #{accountId}
+	</select>
+	
+	<!-- 根据业务账号ID查询业务账号信息 -->
+	<select id="queryByBusinessId" parameterType="int" resultType="edu.nclg.netctoss.entity.Business">
+		select
+			b.business_id as businessId,
+			b.account_id as accountId,
+			b.cost_id as costId,
+			b.unix_host as unixHost,
+			b.os_username as osUserName,
+			b.login_password as loginPassword,
+			b.status,
+			b.create_date as createDate,
+			b.pause_date as pauseDate,
+			b.flag,
+			
+			a.idcard as idCard,
+			a.real_name as realName,
+			
+			c.name
+			
+		from (business b inner join account a on b.account_id=a.account_id)
+						 inner join cost c on c.cost_id=b.cost_id
+		where b.business_id = #{businessId}
+	</select>
+	
+	<!-- 根据OS账号(宽带账号)查询业务账号信息 -->
+	<select id="queryByOsUserName" parameterType="string" resultType="edu.nclg.netctoss.entity.Business">
+		select
+			b.business_id as businessId,
+			b.account_id as accountId,
+			b.cost_id as costId,
+			b.unix_host as unixHost,
+			b.os_username as osUserName,
+			b.login_password as loginPassword,
+			b.status,
+			b.create_date as createDate,
+			b.pause_date as pauseDate,
+			b.flag,
+			
+			a.idcard as idCard,
+			a.real_name as realName,
+			
+			c.name
+			
+		from (business b inner join account a on b.account_id=a.account_id)
+						 inner join cost c on c.cost_id=b.cost_id
+		where b.os_username = #{osUserName}
+	</select>
+	
+	<!-- 根据身份证查询业务账号信息 -->
+	<select id="queryByIdcard" parameterType="string" resultType="edu.nclg.netctoss.entity.Business">
+		select
+			b.business_id as businessId,
+			b.account_id as accountId,
+			b.cost_id as costId,
+			b.unix_host as unixHost,
+			b.os_username as osUserName,
+			b.login_password as loginPassword,
+			b.status,
+			b.create_date as createDate,
+			b.pause_date as pauseDate,
+			b.flag,
+			
+			a.idcard as idCard,
+			a.real_name as realName,
+			
+			c.name
+			
+		from (business b inner join account a on b.account_id=a.account_id)
+						 inner join cost c on c.cost_id=b.cost_id
+		where a.idcard = #{idCard}
+	</select>
+	
+	<!-- 根据服务器ID查询业务账号信息 -->
+	<select id="queryByUnixHost" parameterType="string" resultType="edu.nclg.netctoss.entity.Business">
+		select
+			b.business_id as businessId,
+			b.account_id as accountId,
+			b.cost_id as costId,
+			b.unix_host as unixHost,
+			b.os_username as osUserName,
+			b.login_password as loginPassword,
+			b.status,
+			b.create_date as createDate,
+			b.pause_date as pauseDate,
+			b.flag,
+			
+			a.idcard as idCard,
+			a.real_name as realName,
+			
+			c.name
+			
+		from (business b inner join account a on b.account_id=a.account_id)
+						 inner join cost c on c.cost_id=b.cost_id
+		where b.unix_host = #{unixHost}
+	</select>
+	
+	<!-- 根据OS账号状态查询业务账号信息 -->
+	<select id="queryByStatus" parameterType="int" resultType="edu.nclg.netctoss.entity.Business">
+		select
+			b.business_id as businessId,
+			b.account_id as accountId,
+			b.cost_id as costId,
+			b.unix_host as unixHost,
+			b.os_username as osUserName,
+			b.login_password as loginPassword,
+			b.status,
+			b.create_date as createDate,
+			b.pause_date as pauseDate,
+			b.flag,
+			
+			a.idcard as idCard,
+			a.real_name as realName,
+			
+			c.name
+			
+		from (business b inner join account a on b.account_id=a.account_id)
+						 inner join cost c on c.cost_id=b.cost_id
+		where b.status = #{status}
+	</select>
+	
+	<!-- 添加业务账号信息 -->
+	<insert id="addBusiness" parameterType="edu.nclg.netctoss.entity.Business" useGeneratedKeys="true" keyProperty="businessId">
+		insert into business(
+			account_id, cost_id, unix_host, os_username, login_password, status, create_date, pause_date)
+		values(
+			#{accountId},#{costId},#{unixHost},#{osUserName},#{loginPassword},#{status},#{createDate},#{pauseDate})
+	</insert>
+	
+	<!-- 修改业务账号资费类型标志flag -->
+	<update id="updateFlag" parameterType="map">
+		update business
+		set
+			flag = #{flag}
+		where
+			business_id = #{businessId}
+	</update>
+	
+	<!-- 修改业务账号资费类型ID -->
+	<update id="updateCostId"  parameterType="edu.nclg.netctoss.entity.Business">
+		update business
+		set
+			cost_id = #{costId}
+		where
+			business_id = #{businessId}
+	</update>
+	
+	<!-- 更改业务账号状态 -->
+	<update id="updateStatus" parameterType="edu.nclg.netctoss.entity.Business">
+		update business
+			set
+				status = #{status},
+				pause_date = #{pauseDate}
+		where
+			business_id = #{businessId}
+	</update>
+	
+	<!-- 根据业务账号ID删除业务账号信息 -->
+	<delete id="deleteBusiness" parameterType="int">
+		delete from business
+		where business_id = #{businessId} and status=1
+	</delete>
+	
+	
+</mapper>
+
+
+
+
+
+	
+	
+	
+	
+
+
+
+

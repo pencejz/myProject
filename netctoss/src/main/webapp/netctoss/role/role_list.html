@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>pjz－NetCTOSS</title>
+        <link type="text/css" rel="stylesheet" media="all" href="../styles/global.css" />
+        <link type="text/css" rel="stylesheet" media="all" href="../styles/global_color.css" /> 
+        
+        <script type="text/javascript" src="../js/jquery-1.11.1.js"></script>
+		<script type="text/javascript" src="../js/global.js"></script>
+		<script type="text/javascript" src="../js/role_list.js"></script>
+        <script language="javascript" type="text/javascript">
+            function deleteRole(btn) {
+                var r = window.confirm("确定要删除此角色吗？");
+                
+                if(r == true){
+            		var tds = $(btn).parent().siblings(); //获得角色ID
+            		var roleId = tds.eq(0).html();
+            		$.ajax({
+            			url:host+"rolePermission/deleteRolePermission/"+roleId,
+            			type:"post",
+            			dataType:"json",
+            			success:function(result){ //访问成功
+            				if("success"==result.state){
+            					//alert(result.message);
+            					//重定向到角色管理列表页面(fee_list.html)
+            					window.location.href="role_list.html";
+            				}else{
+            					alert(result.message);
+            				}
+            			},
+            			error:function(){ //访问失败
+            				alert("访问失败");
+            			}
+            		});
+            	} //if
+            }
+        </script>
+        <script language="javascript" type="text/javascript">
+            //跳转到修改页面
+            function updateRole(btn) {
+            	var tds = $(btn).parent().siblings(); //获得角色ID
+        		var roleId = tds.eq(0).html();
+            	location.href="role_modi.html?roleId="+roleId;
+            }
+        </script>
+        
+        
+    </head>
+    <body>
+        <!--Logo区域开始-->
+        <div id="header">
+            <img src="../images/logo.png" alt="logo" class="left"/>
+            <a href="../login.html">[退出]</a>            
+        </div>
+        <!--Logo区域结束-->
+        <!--导航区域开始-->
+        <div id="navi">                        
+            <ul id="menu">
+                <li><a href="../index.html" class="index_off"></a></li>
+                <li><a href="../role/role_list.html" class="role_off"></a></li>
+                <li><a href="../admin/admin_list.html" class="admin_off"></a></li>
+                <li><a href="../fee/fee_list.html" class="fee_off"></a></li>
+                <li><a href="../account/account_list.html" class="account_off"></a></li>
+                <li><a href="../service/service_list.html" class="service_off"></a></li>
+                <li><a href="../bill/bill_list.html" class="bill_off"></a></li>
+                <li><a href="../report/report_list.html" class="report_off"></a></li>
+                <li><a href="../user/user_info.html" class="information_off"></a></li>
+                <li><a href="../user/user_modi_pwd.html" class="password_off"></a></li>
+            </ul>            
+        </div>
+        <!--导航区域结束-->
+        <!--主要区域开始-->
+        <div id="main">
+            <!--查询-->
+            <div class="search_add">
+                <input type="button" value="增加" class="btn_add" onclick="location.href='role_add.html';" />
+            </div>  
+            <!--删除的操作提示-->
+            <div id="operate_result_info" class="operate_success">
+                <img src="../images/close.png" onclick="this.parentNode.style.display='none';" />
+                删除成功！
+            </div> <!--删除错误！该角色被使用，不能删除。-->
+            <!--数据区域：用表格展示数据-->     
+            <div id="data">                      
+                <table id="datalist">
+                    <tr>                            
+                        <th>角色 ID</th>
+                        <th>角色名称</th>
+                        <th class="width600">拥有的权限</th>
+                        <th class="td_modi"></th>
+                    </tr>                      
+                    <tr class = "role">
+                        <td>1</td>
+                        <td>贾强1</td>
+                        <td>角色管理、管理员管理、资费管理、账务账号、业务账号、账单</td>
+                        <td>
+                            <input type="button" value="修改" class="btn_modify" onclick="updateRole(this);"/>
+                            <input type="button" value="删除" class="btn_delete" onclick="deleteRole(this);" />
+                        </td>
+                    </tr>
+                </table>
+                <p>业务说明：<br />
+                	1、本系统角色暂定为两种：超级管理员、普通管理员<br />
+               		2、超级管理员拥有所有权限，普通管理员拥有部分权限<br />
+               		3、普通管理员不能访问角色管理和管理员两个模块，能查询资费管理，但是不能对其进行启用、修改、删除、添加等操作<br />
+                </p>
+            </div>
+        	    
+            </div>
+        </div>
+        <!--主要区域结束-->
+        <div id="footer">
+            <p>版权所有(C)pjz.edu.nclg.netctoss </p>
+        </div>
+    </body>
+</html>
